@@ -1,3 +1,8 @@
 import "./styles.css";
 
-console.log('hey');
+const createToDoTask = (task) => (
+    task
+);
+
+const task = createToDoTask('a')
+console.log(task);

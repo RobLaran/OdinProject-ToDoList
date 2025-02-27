@@ -29,3 +29,8 @@ can view details of a task to and can be edited
 can remove a task and project/list
 add some library for manipulating date and time
 add persistence(localStorage) to store data
+
+TODO:
+
+create a list model
+create a task model

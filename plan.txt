@@ -1,0 +1,29 @@
+todos: object,
+task: {
+    title: string,
+    description, string,
+    dueDate: date,
+    priority: number,
+    notes: string
+}
+
+USE FACTORIES TO ENHANCE 
+
+todos are stored in projects or lists
+starting the app must have a default todo list/project
+
+OPERATIONS:
+create
+view 
+edit
+delete
+
+must separate the app logic 
+keep things in a separate modules
+can view all projects/lists
+can view all tasks in projects/lists
+prioritized tasks must have different colors
+can view details of a task to and can be edited
+can remove a task and project/list
+add some library for manipulating date and time
+add persistence(localStorage) to store data

@@ -1,10 +1,12 @@
-todos: object,
-task: {
-    title: string,
-    description, string,
-    dueDate: date,
-    priority: number,
-    notes: string
+{
+    todos: object,
+    task: {
+        title: string,
+        description, string,
+        dueDate: date,
+        priority: number,
+        notes: string
+    }
 }
 
 USE FACTORIES TO ENHANCE 

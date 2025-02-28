@@ -9,6 +9,7 @@
         <header>
             <h1>Odin Project ToDo List App</h1>
         </header>
+
         <main>
             <div class="content-container">
                 <div class="list-heading-container">
@@ -17,18 +18,22 @@
                 <div class="tasks-heading-container">
                     <h2 id="task-title heading">Untitled task</h2>
                 </div>
-                <div class="list-container list">
-                    <ul class="todo-list">
+
+                <!-- List of task list -->
+                <div class="todo-list-container list-container">
+                    <ul class="todo-list list" id="todo-list">
                     </ul>
-                    <div class="add-list add wrapper">
-                        <button class="add-list-btn btn">
+                    <div class="new-list add wrapper">
+                        <button class="new-list-btn btn" id="new-list">
                             <img src="./asset/icons/add.svg" alt="">
                             <span>New list</span>
                         </button>
                     </div>
                 </div>
-                <div class="tasks-container list">
-                    <ul class="task-list"></ul>
+
+                <!-- List of tasks -->
+                <div class="tasks-container list-container">
+                    <ul class="task-list list" id="task-list"></ul>
                     <div class="add-task add wrapper">
                         <button class="add-task-btn btn">
                             <img src="./asset/icons/add.svg" alt="">
@@ -38,6 +43,7 @@
                 </div>
             </div>
         </main>
+
         <footer>
             <div id="dev">
                 <p>Developed by <a href="" target="_self">Robz</a></p>

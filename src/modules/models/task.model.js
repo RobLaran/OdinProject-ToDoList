@@ -10,18 +10,10 @@ export function createTask(title="Untitled task",description="",dueDate=null,pri
         description,
         dueDate,
         priority,
-        notes
+        notes,
     }
+    
 };
-
-// update task detail
-export function updateTask(task, taskUpdates) {
-    if(task instanceof Object && taskUpdates instanceof Object) {
-        Object.assign(task,taskUpdates);
-    }
-}
-
-// delete task
 
 // display task detail
 export function taskDetails(task) {

@@ -125,18 +125,27 @@ main {
     column-gap: 18px;
 }
 
-.content-container > .list {
+.content-container > .list-container {
     background-color: var(--secondary-color);
 
     display: grid;
 
-    grid-template-rows: auto 0.1fr;
+    grid-template-rows: 1fr 0.1fr;
 
     padding: 8px 14px;
-
 }
 
-.list-container > .todo-list .list-item {
+.list-container > #todo-list {
+    position: relative;
+    max-height: inherit;
+
+    overflow: auto;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.list-container > #todo-list > .list-item {
     line-height: 2rem;
     list-style: none;
     border-bottom: 2px solid black;
@@ -154,8 +163,8 @@ main {
     height: 20px;
 }
 
-.content-container > .list > .add > .add-list-btn,
-.content-container > .list > .add > .add-task-btn {
+.content-container > .list-container > .add > .new-list-btn,
+.content-container > .list-container > .add > .add-task-btn {
     width: 100%;
     height: 100%;
 
@@ -169,13 +178,13 @@ main {
     background: transparent;
 }
 
-.content-container > .list > .add > .add-list-btn:hover,
-.content-container > .list > .add > .add-task-btn:hover {
+.content-container > .list-container > .add > .new-list-btn:hover,
+.content-container > .list-container > .add > .add-task-btn:hover {
         background-color: var(--hover);
 }
 
-.content-container > .list > .add > .add-list-btn > span,
-.content-container > .list > .add > .add-task-btn > span {
+.content-container > .list-container > .add > .new-list-btn > span,
+.content-container > .list-container > .add > .add-task-btn > span {
     height: 20px;
     padding: 0 0;
 

@@ -19,30 +19,17 @@
     --secondary-color: #DDDBCB;
     --tertiary-color: #ffffff;
 
-    --hover: #c6c5b8;
+    --hover: #a6a6a6;
 
     --heading: #000;
-    --text: #525252;
+    --text: #7D7D7C;
 
     --text-size: 1.1rem;
 
-    --first-btn: #21BED1;
-    --second-btn: #D91A21;
-    --third-btn: var(--secondary-color);
+    --edit-btn: #21bed1;
+    --delete-btn: #D91A21;
 
-    --btn-width: 90px;
-    --btn-height: 1.5rem;
-
-    --input-width: 138px;
-    --input-height: 2.2rem;
-
-    --list-width: 124px;
-    --list-height: 2.3rem;
-
-    --task-width: 210px;
-    --task-height: 2.6rem;
-
-    --op: 1;
+    --icon: 20px;
 }
 
 html {
@@ -110,11 +97,11 @@ main {
     justify-self: center;
 
     width: min(100%, 850px);
-    height: 80%;
+    height: 415px;
 
     display: grid;
 
-    grid-template-rows: 0.1fr 1fr;
+    grid-template-rows: 0.1fr minmax(0, 1fr);
     grid-template-columns: 0.5fr auto;
 
     padding: 1rem;
@@ -130,16 +117,16 @@ main {
 
     display: grid;
 
-    grid-template-rows: 1fr 0.1fr;
+    grid-template-rows: minmax(0, 1fr) 0.1fr;
 
     padding: 8px 14px;
 }
 
-.list-container > #todo-list {
-    position: relative;
-    max-height: inherit;
+/* Task lists */
 
-    overflow: auto;
+.list-container > #todo-list {
+    height: 100%;
+    overflow-y: auto;
 
     display: flex;
     flex-direction: column;
@@ -148,7 +135,7 @@ main {
 .list-container > #todo-list > .list-item {
     line-height: 2rem;
     list-style: none;
-    border-bottom: 2px solid black;
+    border-bottom: 1px solid black;
 
     display: flex;
 
@@ -156,16 +143,45 @@ main {
     justify-content: space-between;
 
     padding-left: 3px;
+
+    cursor: pointer;
+
 }
 
-.btn > img {
-    width: 20px;
-    height: 20px;
+.list-container > #todo-list > .list-item > .list-name {
+    flex-grow: 1;
 }
 
-.content-container > .list-container > .add > .new-list-btn,
-.content-container > .list-container > .add > .add-task-btn {
-    width: 100%;
+.list-container > #todo-list > .list-item > .edit-list.icon {
+    width: var(--icon);
+    height: var(--icon);
+    background-color: var(--edit-btn);
+    mask: url("asset/icons/edit.svg") no-repeat center;
+}
+
+.list-container > #todo-list > .list-item > .delete-list.icon{
+    width: var(--icon);
+    height: var(--icon);
+    background-color: var(--delete-btn);
+    mask: url("asset/icons/delete.svg") no-repeat center;
+
+    margin-left: 8px;
+}
+
+.list-container > #todo-list > .list-item:hover {
+    color: var(--hover);
+}
+
+.list-container > #todo-list > .list-item > .delete-list.icon:hover,
+.list-container > #todo-list > .list-item > .edit-list.icon:hover {
+    background-color: var(--hover);
+}
+
+/* New list button */
+
+.list-container > .add > .new-list-btn,
+.list-container > .add > .add-task-btn {
+    width: fit-content;
     height: 100%;
 
     display: flex;
@@ -176,29 +192,40 @@ main {
 
     border: none;
     background: transparent;
+
+    cursor: pointer;
 }
 
-.content-container > .list-container > .add > .new-list-btn:hover,
-.content-container > .list-container > .add > .add-task-btn:hover {
-        background-color: var(--hover);
-}
-
-.content-container > .list-container > .add > .new-list-btn > span,
-.content-container > .list-container > .add > .add-task-btn > span {
+.list-container > .add > .new-list-btn > span,
+.list-container > .add > .add-task-btn > span {
     height: 20px;
     padding: 0 0;
 
     font-family: "madimi";
     font-size: var(--text-size);
+
+    text-align: left;
 }
 
+.add-btn.svg-container {
+    width: 20px;
+    height: 20px;
+    background-color: #000;
+    mask: url("asset/icons/add.svg") no-repeat center;
+}
 
+.list-container > .add.wrapper > button:hover {
+    color: var(--hover);
+}
+
+.list-container > .add.wrapper > button:hover > .add-btn.svg-container {
+    background-color: var(--hover);
+}
 
 /* FOOTER */
 
 footer {
     background-color: var(--primary-color);
-    opacity: var(--op);
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
 }
 

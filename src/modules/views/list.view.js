@@ -1,5 +1,3 @@
-import deleteIcon from "../../asset/icons/delete.svg";
-
 // List view
 
 // Create element to display a list
@@ -12,32 +10,32 @@ export function createListElement(list) {
     listName.className = "list-name";
     listName.textContent = list.name;
 
-    const deleteListIcon = document.createElement("img");
-    deleteListIcon.className = "delete-list icon delete";
-    deleteListIcon.src = deleteIcon;
+    const editListNameIcon = document.createElement("div");
+    editListNameIcon.className = "edit-list icon";
+
+    const deleteListIcon = document.createElement("div");
+    deleteListIcon.className = "delete-list icon";
 
     listDiv.append(
         listName,
+        editListNameIcon,
         deleteListIcon
     );
+
+    editListNameIcon.addEventListener("click", () => {
+        console.log("editing");
+    });
+
+    deleteListIcon.addEventListener("click", () => {
+        const parent = listDiv.parentElement;
+
+        parent.removeChild(listDiv);
+    });
+
+    listName.addEventListener("click", () => {
+        console.log("clicked");
+    });
 
     return listDiv;
 }
 
-export function newList(list) {
-    const todoList = document.getElementById("todo-list");
-
-    // clearItems();
-
-    todoList.append(list);
-
-    function clearItems() {
-        let element = todoList.lastElementChild;
-
-        while(element) {
-            todoList.removeChild(element);
-
-            element = todoList.lastElementChild;
-        }
-    }
-}

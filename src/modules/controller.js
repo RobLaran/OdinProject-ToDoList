@@ -1,6 +1,6 @@
 import { createList } from "./models/list.model.js";
 import { createTask, taskDetails } from "./models/task.model.js";
-import { createListElement, newList } from "./views/list.view.js";
+import { createListElement } from "./views/list.view.js";
 
 // Add new list
 function addNewList() {
@@ -22,11 +22,16 @@ function addNewList() {
 function newListEventListener() {
     const newListBtn = document.getElementById("new-list");
 
-    newListBtn.addEventListener("click", addNewList) ;
+    newListBtn.addEventListener("click", addNewList);
 }
+
+function newTaskEventListener() {
+
+}
+
 
 // Initialize
 export default function initialize() {
-    newListEventListener()
+    newListEventListener();
 }
 

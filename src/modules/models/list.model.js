@@ -1,6 +1,5 @@
 // List model
 
-// Functions
 // Create list 
 export function createList(name="Untitled list") {
     const list = [];

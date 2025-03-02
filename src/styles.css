@@ -41,6 +41,8 @@
     --input-width: 320px;
     --input-height: 1.2rem;
     --input-padding: 4px;
+
+    --statement: 0.9rem;
 }
 
 html {
@@ -246,11 +248,15 @@ main {
 
 /* Task Container */
 
-.list-container > #task-list > .list-item > .task-name {
+#task-list {
+    display: flex;
+}
+
+#task-list > .list-item > .task-name {
     margin-left: 8px;
 }
 
-.list-container > #task-list > .list-item > input[type="checkbox"] {
+#task-list > .list-item > input[type="checkbox"] {
     position: relative;
     appearance: none;
 
@@ -261,7 +267,7 @@ main {
     border: 2px solid var(--checkbox);
 }
 
-.list-container > #task-list > .list-item > input[type="checkbox"]::before {
+#task-list > .list-item > input[type="checkbox"]::before {
     width: 100%;
     position: absolute;
 
@@ -274,19 +280,27 @@ main {
     transform: translateY(-2px);
 }
 
-.list-container > #task-list > .list-item > input[type="checkbox"]:checked {
+#task-list > .list-item > input[type="checkbox"]:checked {
     background-color: var(--checkbox);
 }
 
-.list-container > #task-list > .list-item > input[type="checkbox"]:checked::before {
+#task-list > .list-item > input[type="checkbox"]:checked::before {
     opacity: 1;
 
     color: var(--secondary-color);
 }
 
-.list-container > #task-list > .list-item > input[type="checkbox"]:not(:checked):hover::before {
+#task-list > .list-item > input[type="checkbox"]:not(:checked):hover::before {
     opacity: 1;
     color: var(--checkbox);
+}
+
+#task-list > h4 {
+    display: inline-block;
+
+    text-align: center;
+
+    margin: auto;
 }
 
 /* Modal */
@@ -304,7 +318,24 @@ main {
     font-size: var(--text-size);
 }
 
+.modal::backdrop {
+    backdrop-filter: blur(3px);
+}
+
 /* Modal buttons */
+.modal .statement {
+    font-size: var(--statement);
+}
+
+.modal .modal-btns {
+    margin-top: 16px;
+
+    display: flex;
+
+    justify-content: center;
+    column-gap: 8px;
+}
+
 .modal .modal-btn {
     width: var(--button-width);
     line-height: var(--button-height);
@@ -330,9 +361,11 @@ main {
     background-color: var(--delete-btn);
 }
 
+.modal .edit-btn {
+    background-color: var(--edit-btn);
+}
 
-/* List modal */
-#list-modal > .text-input {
+.modal .text-input {
     width: var(--input-width);
     line-height: var(--input-height);
     padding: var(--input-padding);
@@ -340,18 +373,6 @@ main {
     font-family: var(--font);
     font-size: var(--text-size);
 }
-
-#list-modal > .modal-btns {
-    margin-top: 16px;
-
-    display: flex;
-
-    justify-content: center;
-    column-gap: 8px;
-}
-
-
-
 
 
 /* FOOTER */

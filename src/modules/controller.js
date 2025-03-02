@@ -1,37 +1,49 @@
-import { createList } from "./models/list.model.js";
 import { createTask, taskDetails } from "./models/task.model.js";
-import { createListElement } from "./views/list.view.js";
+import { createTaskElement } from "./views/task.view.js";
+import modal from "./views/listModal.view.js";
 
-// Add new list
-function addNewList() {
-    const todoLists = document.getElementById("todo-list");
+// Add new task
+function addNewTask() {
+    const taskList = document.getElementById("task-list");
 
-    const newList = createList();
-    const newListElement = createListElement(newList);
+    const task = createTask();
+    const taskElement = createTaskElement(task);
 
-    todoLists.append(newListElement);
+    taskList.append(taskElement);
 }
 
 // Remove list
 
 // Open modal
+function newListModal() {
+    const container = document.getElementById("content-container");
+
+    const listModal = modal; 
+
+    container.append(listModal);
+
+    listModal.showModal();
+}
 
 // Close modal
 
 // Handle button events
 function newListEventListener() {
-    const newListBtn = document.getElementById("new-list");
+    const newListButton = document.getElementById("new-list");
 
-    newListBtn.addEventListener("click", addNewList);
+    newListButton.addEventListener("click", newListModal);
 }
 
 function newTaskEventListener() {
+    const newTaskButton = document.getElementById("add-task");
 
+    newTaskButton.addEventListener("click", addNewTask);
 }
 
 
 // Initialize
 export default function initialize() {
     newListEventListener();
+    newTaskEventListener();
 }
 

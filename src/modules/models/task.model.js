@@ -11,6 +11,7 @@ export function createTask(title="Untitled task",description="",dueDate=null,pri
         dueDate,
         priority,
         notes,
+        completed: false
     }
     
 };
@@ -23,3 +24,4 @@ export function taskDetails(task) {
         }
     }
 }
+

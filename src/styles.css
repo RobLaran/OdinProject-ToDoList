@@ -25,11 +25,22 @@
     --text: #7D7D7C;
 
     --text-size: 1.1rem;
+    --font: "madimi";
+
+    --border-btn: 8px;
+    --button-width: 70px;
+    --button-height: 1.6rem; 
 
     --edit-btn: #21bed1;
+    --confirm-btn: var(--edit-btn);
     --delete-btn: #D91A21;
+    --checkbox: var(--edit-btn);    
 
     --icon: 20px;
+
+    --input-width: 320px;
+    --input-height: 1.2rem;
+    --input-padding: 4px;
 }
 
 html {
@@ -92,7 +103,7 @@ main {
     display: grid;
 }
 
-.content-container {
+#content-container {
     align-self: center;
     justify-self: center;
 
@@ -112,7 +123,7 @@ main {
     column-gap: 18px;
 }
 
-.content-container > .list-container {
+#content-container > .list-container {
     background-color: var(--secondary-color);
 
     display: grid;
@@ -122,7 +133,7 @@ main {
     padding: 8px 14px;
 }
 
-/* Task lists */
+/* ToDo lists */
 
 .list-container > #todo-list {
     height: 100%;
@@ -132,7 +143,7 @@ main {
     flex-direction: column;
 }
 
-.list-container > #todo-list > .list-item {
+.list-container > .list > .list-item {
     line-height: 2rem;
     list-style: none;
     border-bottom: 1px solid black;
@@ -148,18 +159,27 @@ main {
 
 }
 
-.list-container > #todo-list > .list-item > .list-name {
+.list-container > #todo-list > .list-item > .list-name,
+.list-container > #task-list > .list-item > .task-name {
     flex-grow: 1;
 }
 
-.list-container > #todo-list > .list-item > .edit-list.icon {
+.list-container > .list > .list-item > .btn {
+    border: none;
+
+    cursor: pointer;
+}
+
+.list-container > .list > .list-item > .edit-list.btn,
+.list-container > .list > .list-item > .edit-task.btn {
     width: var(--icon);
     height: var(--icon);
     background-color: var(--edit-btn);
     mask: url("asset/icons/edit.svg") no-repeat center;
 }
 
-.list-container > #todo-list > .list-item > .delete-list.icon{
+.list-container > .list > .list-item > .delete-list.btn,
+.list-container > .list > .list-item > .delete-task.btn{
     width: var(--icon);
     height: var(--icon);
     background-color: var(--delete-btn);
@@ -168,12 +188,14 @@ main {
     margin-left: 8px;
 }
 
-.list-container > #todo-list > .list-item:hover {
+.list-container > .list > .list-item:hover {
     color: var(--hover);
 }
 
-.list-container > #todo-list > .list-item > .delete-list.icon:hover,
-.list-container > #todo-list > .list-item > .edit-list.icon:hover {
+.list-container > .list > .list-item > .edit-list.btn:hover,
+.list-container > .list > .list-item > .delete-list.btn:hover,
+.list-container > .list > .list-item > .edit-task.btn:hover,
+.list-container > .list > .list-item > .delete-task.btn:hover {
     background-color: var(--hover);
 }
 
@@ -221,6 +243,112 @@ main {
 .list-container > .add.wrapper > button:hover > .add-btn.svg-container {
     background-color: var(--hover);
 }
+
+/* Task Container */
+
+.list-container > #task-list > .list-item > .task-name {
+    margin-left: 8px;
+}
+
+.list-container > #task-list > .list-item > input[type="checkbox"] {
+    position: relative;
+    appearance: none;
+
+    width: var(--icon);
+    height: var(--icon);
+
+    border-radius: 50%;
+    border: 2px solid var(--checkbox);
+}
+
+.list-container > #task-list > .list-item > input[type="checkbox"]::before {
+    width: 100%;
+    position: absolute;
+
+    content: "✔";
+    opacity: 0;
+    
+    text-align: center;
+    font-size: 14px;
+
+    transform: translateY(-2px);
+}
+
+.list-container > #task-list > .list-item > input[type="checkbox"]:checked {
+    background-color: var(--checkbox);
+}
+
+.list-container > #task-list > .list-item > input[type="checkbox"]:checked::before {
+    opacity: 1;
+
+    color: var(--secondary-color);
+}
+
+.list-container > #task-list > .list-item > input[type="checkbox"]:not(:checked):hover::before {
+    opacity: 1;
+    color: var(--checkbox);
+}
+
+/* Modal */
+.modal {
+    background-color: var(--secondary-color);
+    margin: auto;
+
+    padding: 14px;
+    border-radius: 20px;
+
+    box-sizing: border-box;
+
+    display: grid;
+}
+
+/* Modal buttons */
+.modal .modal-btn {
+    width: var(--button-width);
+    line-height: var(--button-height);
+    border-radius: var(--border-btn);
+
+    border: none;
+
+    font-family: var(--font);
+}
+
+.modal .modal-btn:hover {
+    outline: 1px solid black;
+    background-color: var(--hover);
+    color: var(--tertiary-color);
+}
+
+.modal .confirm-btn {
+    background-color: var(--confirm-btn);
+}
+
+.modal .delete-btn {
+    background-color: var(--delete-btn);
+}
+
+
+/* List modal */
+#list-modal > .list-input {
+    width: var(--input-width);
+    line-height: var(--input-height);
+    padding: var(--input-padding);
+
+    font-family: var(--font);
+}
+
+#list-modal > .modal-btns {
+    margin-top: 16px;
+
+    display: flex;
+
+    justify-content: center;
+    column-gap: 8px;
+}
+
+
+
+
 
 /* FOOTER */
 

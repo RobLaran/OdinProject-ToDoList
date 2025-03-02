@@ -3,6 +3,8 @@
 // Create element to display a list
 
 export function createListElement(list) {
+    
+    // Create components 
     const listDiv = document.createElement("li");
     listDiv.className = "list-item";
 
@@ -10,18 +12,14 @@ export function createListElement(list) {
     listName.className = "list-name";
     listName.textContent = list.name;
 
-    const editListNameIcon = document.createElement("div");
-    editListNameIcon.className = "edit-list icon";
+    const editListNameIcon = document.createElement("button");
+    editListNameIcon.className = "edit-list btn";
 
-    const deleteListIcon = document.createElement("div");
-    deleteListIcon.className = "delete-list icon";
+    const deleteListIcon = document.createElement("button");
+    deleteListIcon.className = "delete-list btn";
+    
 
-    listDiv.append(
-        listName,
-        editListNameIcon,
-        deleteListIcon
-    );
-
+    // Set event listener
     editListNameIcon.addEventListener("click", () => {
         console.log("editing");
     });
@@ -35,6 +33,14 @@ export function createListElement(list) {
     listName.addEventListener("click", () => {
         console.log("clicked");
     });
+
+
+    // Add all sub components
+    listDiv.append(
+        listName,
+        editListNameIcon,
+        deleteListIcon
+    );
 
     return listDiv;
 }

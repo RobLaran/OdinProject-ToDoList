@@ -1,9 +1,41 @@
+import { createList } from "./models/list.model.js";
+import { createListElement } from "./views/list.view.js";
 import { createTask, taskDetails } from "./models/task.model.js";
 import { createTaskElement } from "./views/task.view.js";
 import modal from "./views/listModal.view.js";
 
+const todoList = createList();
+
+const taskList = createList("Default list");
+
+todoList.add(taskList);
+
+// ? Duplicates list when rendering/refreshing
+
+function renderTodoList() {
+    const list = document.getElementById("todo-list");
+    
+    todoList.items.forEach(element => {
+        if(element) {
+            const taskListElement = createListElement(element);
+
+            list.appendChild(taskListElement);
+        }
+    });
+
+    console.log(todoList.items);
+}
+
+function refresh() {
+    const list = document.getElementById("todo-list");
+    
+    for(let element of list.children) list.removeChild(element);
+    
+    renderTodoList();
+}
+
 // Add new task
-function addNewTask() {
+function addTask() {
     const taskList = document.getElementById("task-list");
 
     const task = createTask();
@@ -12,9 +44,14 @@ function addNewTask() {
     taskList.append(taskElement);
 }
 
-// Remove list
+// Add new list
+export function addList(list) {
+    todoList.add(list);
 
-// Open modal
+    refresh();
+}
+
+// Open new list modal
 function newListModal() {
     const container = document.getElementById("content-container");
 
@@ -24,8 +61,6 @@ function newListModal() {
 
     listModal.showModal();
 }
-
-// Close modal
 
 // Handle button events
 function newListEventListener() {
@@ -37,13 +72,15 @@ function newListEventListener() {
 function newTaskEventListener() {
     const newTaskButton = document.getElementById("add-task");
 
-    newTaskButton.addEventListener("click", addNewTask);
+    newTaskButton.addEventListener("click", addTask);
 }
 
 
 // Initialize
-export default function initialize() {
+export function initialize() {
     newListEventListener();
     newTaskEventListener();
+
+    renderTodoList();
 }
 

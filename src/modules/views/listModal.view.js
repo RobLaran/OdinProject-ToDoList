@@ -1,7 +1,8 @@
 import { createList } from "../models/list.model.js";
 import { createListElement } from "./list.view.js";
+import { addList } from "../controller.js";
 
-export default (function createnNewListModal() {
+export default (function createNewListModal() {
 
     // Create components
     const modal = document.createElement("dialog");
@@ -15,7 +16,7 @@ export default (function createnNewListModal() {
 
     const listNameInput = document.createElement("input");
     listNameInput.type = "text";
-    listNameInput.className = "list-input";
+    listNameInput.className = "text-input";
     listNameInput.id = "list-name-input";
 
     const modalButtons = document.createElement("div");
@@ -31,16 +32,10 @@ export default (function createnNewListModal() {
     cancelButton.className = "cancel-btn modal-btn";
     cancelButton.textContent = "Cancel";
 
-    // Functions
-    function addNewList() {
-        const todoLists = document.getElementById("todo-list");
+    function confirmList() {
+        const listName = listNameInput.value.trim() != 0 ? listNameInput.value.trim() : undefined;
 
-        const listName = listNameInput.value.trim().length != 0 ? listNameInput.value.trim() : "Untitled list";
-
-        const list = createList(listName);
-        const listElement = createListElement(list);
-    
-        todoLists.append(listElement);
+        addList(createList(listName));
 
         closeModal();
     }
@@ -55,7 +50,7 @@ export default (function createnNewListModal() {
     }
 
     // Set event listener
-    confirmButton.addEventListener("click", addNewList);
+    confirmButton.addEventListener("click", confirmList);
 
     cancelButton.addEventListener("click", closeModal);
 

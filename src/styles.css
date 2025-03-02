@@ -28,8 +28,8 @@
     --font: "madimi";
 
     --border-btn: 8px;
-    --button-width: 70px;
-    --button-height: 1.6rem; 
+    --button-width: 80px;
+    --button-height: 1.8rem; 
 
     --edit-btn: #21bed1;
     --confirm-btn: var(--edit-btn);
@@ -300,6 +300,8 @@ main {
     box-sizing: border-box;
 
     display: grid;
+
+    font-size: var(--text-size);
 }
 
 /* Modal buttons */
@@ -311,6 +313,7 @@ main {
     border: none;
 
     font-family: var(--font);
+    font-size: var(--text-size);
 }
 
 .modal .modal-btn:hover {
@@ -329,12 +332,13 @@ main {
 
 
 /* List modal */
-#list-modal > .list-input {
+#list-modal > .text-input {
     width: var(--input-width);
     line-height: var(--input-height);
     padding: var(--input-padding);
 
     font-family: var(--font);
+    font-size: var(--text-size);
 }
 
 #list-modal > .modal-btns {

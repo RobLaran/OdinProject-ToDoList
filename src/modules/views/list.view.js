@@ -9,7 +9,7 @@ const todoList = document.getElementById("todo-list");
 const taskTitle = document.getElementById("task-title");
 const taskList = document.getElementById("task-list");
 
-let currentList = 0;
+export let currentList = 0;
 
 // Create element to display a list
 export function createListElement(list) {
@@ -41,7 +41,7 @@ export function createListElement(list) {
     listName.addEventListener("click", () => {
         currentList = mainList.items.indexOf(list);
 
-        showTasks(list);
+        refresh();
 
         console.log("List index: " + currentList);
     });
@@ -68,18 +68,14 @@ export function editList(list) {
     const index = mainList.items.indexOf(list);
 
     if(index != -1) {
-        console.log(index);
-        console.log(list.name);
-        console.log(index);
-        
+     
         const oldList = mainList.getItem(index);
         oldList.name = list.name;
     }
 };
 
-export function showTasks(list) {
-    console.log(list, list.size);
-    
+export function showTasks() {
+    const list = mainList.getItem(currentList);
 
     taskTitle.innerText = list.name;
     const tasks = list.items;
@@ -107,6 +103,8 @@ export function render() {
             todoList.appendChild(createListElement(element));
         }
     });
+
+    showTasks();
 };
 
 export function refresh() {
@@ -116,6 +114,14 @@ export function refresh() {
         todoList.removeChild(listChild);
 
         listChild = todoList.lastElementChild;
+    }
+
+    let taskChild = taskList.lastElementChild;
+
+    while(taskChild) {
+        taskList.removeChild(taskChild);
+
+        taskChild = taskList.lastElementChild;
     }
     
     render();

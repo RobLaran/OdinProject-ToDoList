@@ -382,30 +382,30 @@ main {
     font-size: var(--text-size);
 }
 
-#add-task-modal {
+.modal .textarea-input {
+    height: 90px;
+    resize: none;
+}
+
+.task.modal {
     grid-template-columns: 1fr 1fr;
 
     column-gap: 12px;
 }
 
-#add-task-modal > input,
-#add-task-modal > textarea,
-#add-task-modal > select {
+.task.modal > input,
+.task.modal > textarea,
+.task.modal > select {
     margin-bottom: 6px;
 }
 
-#add-task-modal > .textarea-input {
-    height: 90px;
-    resize: none;
-}
-
-#add-task-modal > *:has(~ .due-date-label),
-#add-task-modal > .select-priority ~ * {
+.task.modal > *:has(~ .due-date-label),
+.task.modal > .select-priority ~ * {
     grid-column: 1 / span 2;
 }
 
-#add-task-modal > .due-date-label,
-#add-task-modal > .priority-label {
+.task.modal > .due-date-label,
+.task.modal > .priority-label {
     grid-row: 5;
 }
 

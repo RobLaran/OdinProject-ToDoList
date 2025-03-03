@@ -38,12 +38,15 @@ export function initialize() {
 
     const defaultList = createList("Default list");
 
-    const task = createTask();
+    const task1 = createTask("Task One");
+    const task2 = createTask("Task Two");
+    const task3 = createTask("Task Three");
 
-    defaultList.add(task);
+    defaultList.add(task1);
+    defaultList.add(task2);
+    defaultList.add(task3);
 
     addList(defaultList);
-    showTasks(defaultList);
     render();
 }
 

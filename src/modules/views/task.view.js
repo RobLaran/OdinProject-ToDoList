@@ -1,5 +1,5 @@
 // Task view
-import { deleteListModal, editListModal } from "./modal.view";
+import { deleteTaskModal, editTaskModal } from "./modal.view";
 
 // Create element to display a task
 export function createTaskElement(task) {
@@ -31,13 +31,11 @@ export function createTaskElement(task) {
     });
 
     editButton.addEventListener("click", () => {
-        console.log("editing");
+        editTaskModal(task);
     });
 
     deleteButton.addEventListener("click", () => {
-        const parent = taskDiv.parentElement;
-
-        parent.removeChild(taskDiv);
+        deleteTaskModal(task);
     });
 
     // Add sub components

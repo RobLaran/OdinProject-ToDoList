@@ -218,7 +218,7 @@ export function addTaskModal() {
     // Create components
     const modal = document.createElement("dialog");
     modal.id = "add-task-modal";
-    modal.className = "modal";
+    modal.className = "task modal";
 
     const titleLabel = document.createElement("label");
     titleLabel.className = "task-title-label";
@@ -334,5 +334,200 @@ export function addTaskModal() {
     addButton.addEventListener("click", add);
     cancelButton.addEventListener("click", close);
     
+    show();
+}
+
+
+export function editTaskModal(task) {
+    // Create components
+    const modal = document.createElement("dialog");
+    modal.id = "edit-task-modal";
+    modal.className = "task modal";
+
+    const titleLabel = document.createElement("label");
+    titleLabel.className = "task-title-label";
+    titleLabel.textContent = "Title";
+    titleLabel.setAttribute("for", "task-title-input");
+
+    const titleInput = document.createElement("input");
+    titleInput.type = "text";
+    titleInput.className = "text-input";
+    titleInput.id = "task-title-input";
+    titleInput.value = task.title;
+
+    const descriptionLabel = document.createElement("label");
+    descriptionLabel.className = "description-label";
+    descriptionLabel.textContent = "Description";
+    descriptionLabel.setAttribute("for", "description-input");
+
+    const descriptionInput = document.createElement("textarea");
+    descriptionInput.className = "textarea-input";
+    descriptionInput.id = "description-input";
+    descriptionInput.value = task.description;
+
+    const dueDateLabel = document.createElement("label");
+    dueDateLabel.className = "due-date-label";
+    dueDateLabel.textContent = "Due date";
+    dueDateLabel.setAttribute("for", "due-date-input");
+
+    const dueDateInput = document.createElement("input");
+    dueDateInput.type = "date";
+    dueDateInput.className = "date-input";
+    dueDateInput.id = "due-date-input";
+    dueDateInput.value = task.dueDate;
+
+    const priotityLabel = document.createElement("label");
+    priotityLabel.className = "priority-label";
+    priotityLabel.textContent = "Priority";
+    priotityLabel.setAttribute("for", "priority-selection");
+
+    const prioritySelection = document.createElement("select");
+    prioritySelection.className = "select-priority";
+    prioritySelection.id = "priority-selection";
+    prioritySelection.name = "priority";
+    prioritySelection.value = task.priority;
+
+    const priorities = ["Low", "Medium", "High"];
+
+    for(let i = 0; i < 3; i++) {
+        const option = document.createElement("option");
+        option.className = "priority-option";
+        option.innerText = priorities[i];
+        option.value = priorities[i].toLowerCase();
+
+        prioritySelection.appendChild(option);
+    }
+
+    const notesLabel = document.createElement("label");
+    notesLabel.className = "notes-label";
+    notesLabel.textContent = "Notes";
+    notesLabel.setAttribute("for", "notes-input");
+
+    const notesInput = document.createElement("textarea");
+    notesInput.className = "textarea-input";
+    notesInput.id = "notes-input";
+    notesInput.value = task.notes;
+
+    const modalButtons = document.createElement("div");
+    modalButtons.className = "modal-btns";
+
+    const editButton = document.createElement("button");
+    editButton.id = "edit-task";
+    editButton.className = "edit-btn modal-btn";
+    editButton.textContent = "Edit";
+
+    const cancelButton = document.createElement("button");
+    cancelButton.id = "cancel-task";
+    cancelButton.className = "cancel-btn modal-btn";
+    cancelButton.textContent = "Cancel";
+
+    // Add buttons to button div
+    modalButtons.append(
+        editButton,
+        cancelButton,
+    );
+
+    // Add sub components to modal
+    modal.append(
+        titleLabel,
+        titleInput,
+        descriptionLabel,
+        descriptionInput,
+        dueDateLabel,
+        dueDateInput,
+        priotityLabel,
+        prioritySelection,
+        notesLabel,
+        notesInput,
+        modalButtons
+    );
+
+    // Functions
+    const show = () => {
+        container.append(modal);
+
+        modal.showModal();
+    };
+
+    const edit = () => {
+        close();
+        refresh();
+    };
+
+    const close = () => {
+        modal.close();
+        container.removeChild(modal);
+    };
+
+    // Set event listener
+    editButton.addEventListener("click", edit);
+    cancelButton.addEventListener("click", close);
+    
+    show();
+}
+
+
+export function deleteTaskModal(task) {
+
+    // Create components
+    const modal = document.createElement("dialog");
+    modal.id = "delete-task-modal";
+    modal.className = "delete modal";
+
+    const deleteListLabel = document.createElement("label");
+    deleteListLabel.className = "delete-list-label";
+    deleteListLabel.textContent = "Delete task";
+
+    const deleteStatement = document.createElement("p");
+    deleteStatement.className = "statement";
+    deleteStatement.innerText = `"${task.title}" will be permanently deleted.`
+
+    const modalButtons = document.createElement("div");
+    modalButtons.className = "modal-btns";
+
+    const deleteButton = document.createElement("button");
+    deleteButton.id = "delete-list";
+    deleteButton.className = "delete-btn modal-btn";
+    deleteButton.textContent = "Delete";
+
+    const cancelButton = document.createElement("button");
+    cancelButton.id = "cancel-list";
+    cancelButton.className = "cancel-btn modal-btn";
+    cancelButton.textContent = "Cancel";
+
+    // Add sub components
+    modalButtons.append(
+        deleteButton,
+        cancelButton
+    );
+
+    modal.append(
+        deleteListLabel,
+        deleteStatement,
+        modalButtons
+    );
+
+    // Functions
+    const show = () => {
+        container.append(modal);
+
+        modal.showModal();
+    };
+
+    const remove = () => {
+        close();
+        refresh();
+    };
+
+    const close = () => {
+        modal.close();
+        container.removeChild(modal);
+    };
+
+    // Set event listener
+    deleteButton.addEventListener("click", remove);
+
+    cancelButton.addEventListener("click", close);
+
     show();
 }

@@ -78,13 +78,15 @@ export function editList(list) {
 };
 
 export function showTasks(list) {
+    console.log(list, list.size);
+    
+
     taskTitle.innerText = list.name;
     const tasks = list.items;
 
-    if(list.size === 0) {
+    if(list.size() === 0) {
         if(!document.getElementById("message")) {
             const message = "Task list is empty"; 
-
 
             const messageWrapper = document.createElement("h4");
             messageWrapper.innerText = message; 

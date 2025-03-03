@@ -13,7 +13,6 @@ export function createTask(title="Untitled task",description="",dueDate=null,pri
         notes,
         completed: false
     }
-    
 };
 
 // display task detail

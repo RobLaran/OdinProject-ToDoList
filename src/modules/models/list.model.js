@@ -6,7 +6,7 @@ export function createList(name="Untitled list") {
 
     const items = (() => list)();
 
-    const size = (() => list.length)();
+    const size = () => list.length;
 
     const add = (item) => list.push(item);
 

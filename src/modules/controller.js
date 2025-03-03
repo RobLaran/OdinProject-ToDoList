@@ -1,6 +1,7 @@
 import { addList, render, showTasks } from "./views/list.view.js";
 import { createList } from "./models/list.model.js";
-import { openNewListModal } from "./views/modal.view.js";
+import { openNewListModal, addTaskModal } from "./views/modal.view.js";
+import { createTask } from "./models/task.model.js";
 
 // Add new task
 // function addTask() {
@@ -21,21 +22,25 @@ function newListEventListener() {
     });
 }
 
-// function newTaskEventListener() {
-//     const newTaskButton = document.getElementById("add-task");
+function newTaskEventListener() {
+    const newTaskButton = document.getElementById("add-task");
 
-//     newTaskButton.addEventListener("click", () => {
-//         addTask()
-//     });
-// }
+    newTaskButton.addEventListener("click", () => {
+        addTaskModal();
+    });
+}
 
 
 // Initialize
 export function initialize() {
     newListEventListener();
-    // newTaskEventListener();
+    newTaskEventListener();
 
     const defaultList = createList("Default list");
+
+    const task = createTask();
+
+    defaultList.add(task);
 
     addList(defaultList);
     showTasks(defaultList);

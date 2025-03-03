@@ -33,6 +33,7 @@
 
     --edit-btn: #21bed1;
     --confirm-btn: var(--edit-btn);
+    --add-btn: var(--edit-btn);
     --delete-btn: #D91A21;
     --checkbox: var(--edit-btn);    
 
@@ -250,6 +251,8 @@ main {
 
 #task-list {
     display: flex;
+
+    flex-direction: column;
 }
 
 #task-list > .list-item > .task-name {
@@ -357,6 +360,10 @@ main {
     background-color: var(--confirm-btn);
 }
 
+.modal .add-btn {
+    background-color: var(--add-btn);
+}
+
 .modal .delete-btn {
     background-color: var(--delete-btn);
 }
@@ -365,13 +372,41 @@ main {
     background-color: var(--edit-btn);
 }
 
-.modal .text-input {
+.modal .text-input,
+.modal .textarea-input {
     width: var(--input-width);
     line-height: var(--input-height);
     padding: var(--input-padding);
 
     font-family: var(--font);
     font-size: var(--text-size);
+}
+
+#add-task-modal {
+    grid-template-columns: 1fr 1fr;
+
+    column-gap: 12px;
+}
+
+#add-task-modal > input,
+#add-task-modal > textarea,
+#add-task-modal > select {
+    margin-bottom: 6px;
+}
+
+#add-task-modal > .textarea-input {
+    height: 90px;
+    resize: none;
+}
+
+#add-task-modal > *:has(~ .due-date-label),
+#add-task-modal > .select-priority ~ * {
+    grid-column: 1 / span 2;
+}
+
+#add-task-modal > .due-date-label,
+#add-task-modal > .priority-label {
+    grid-row: 5;
 }
 
 

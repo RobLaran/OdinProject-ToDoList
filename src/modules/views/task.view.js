@@ -1,4 +1,5 @@
 // Task view
+import { deleteListModal, editListModal } from "./modal.view";
 
 // Create element to display a task
 export function createTaskElement(task) {

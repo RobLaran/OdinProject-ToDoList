@@ -1,15 +1,6 @@
 // List view
-import { createList } from "../models/list.model";
+import { mainList, currentList, changeList, refresh } from "../controller";
 import { deleteListModal, editListModal } from "./modal.view";
-import { createTaskElement } from "./task.view";
-
-const mainList = createList("Todo List");
-const todoList = document.getElementById("todo-list");
-
-const taskTitle = document.getElementById("task-title");
-const taskList = document.getElementById("task-list");
-
-export let currentList = 0;
 
 // Create element to display a list
 export function createListElement(list) {
@@ -39,12 +30,15 @@ export function createListElement(list) {
     });
 
     listName.addEventListener("click", () => {
-        currentList = mainList.items.indexOf(list);
+        const index = mainList.items.indexOf(list);
+
+        changeList(index);
 
         refresh();
 
         console.log("List index: " + currentList);
     });
+    
 
     // Add all sub components
     listDiv.append(
@@ -56,83 +50,9 @@ export function createListElement(list) {
     return listDiv;
 }
 
-export function addList(list) {
-    mainList.add(list);
-};
 
-export function removeList(list) {
-    mainList.removeItem(list);
-};
 
-export function editList(list) {
-    const index = mainList.items.indexOf(list);
 
-    if(index != -1) {
-     
-        const oldList = mainList.getItem(index);
-        oldList.name = list.name;
-    }
-};
 
-export function removeTask(task) {
-    const list = mainList.getItem(currentList);
 
-    if(list) {
-        list.removeItem(task);
-    }
-}
 
-export function showTasks() {
-    const list = mainList.getItem(currentList);
-
-    if(list) {
-        taskTitle.innerText = list.name;
-        const tasks = list.items;
-    
-        if(list.size() === 0) {
-            if(!document.getElementById("message")) {
-                const message = "Task list is empty"; 
-    
-                const messageWrapper = document.createElement("h4");
-                messageWrapper.innerText = message; 
-                messageWrapper.id = "message";
-                
-                taskList.append(messageWrapper);
-            }
-        } else {
-            tasks.forEach(task => {
-                taskList.append(createTaskElement(task));
-            });
-        }   
-    }
-}
-
-export function render() {
-    mainList.items.forEach(element => {
-        if(element) {
-            todoList.appendChild(createListElement(element));
-        }
-    });
-
-    showTasks();
-};
-
-export function refresh() {
-    let listChild = todoList.lastElementChild;
-
-    while(listChild) {
-        todoList.removeChild(listChild);
-
-        listChild = todoList.lastElementChild;
-    }
-
-    let taskChild = taskList.lastElementChild;
-
-    while(taskChild) {
-        taskList.removeChild(taskChild);
-
-        taskChild = taskList.lastElementChild;
-    }
-    
-    render();
-};

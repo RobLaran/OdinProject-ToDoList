@@ -22,7 +22,8 @@
     --hover: #a6a6a6;
 
     --heading: #000;
-    --text: #7D7D7C;
+
+    --completed: #7D7D7C;
 
     --text-size: 1.1rem;
     --font: "madimi";
@@ -298,6 +299,12 @@ main {
     color: var(--checkbox);
 }
 
+#task-list > .list-item > .checkbox:checked ~ .task-name {
+    text-decoration: line-through;
+
+    color: var(--completed);
+}
+
 #task-list > h4 {
     display: inline-block;
 
@@ -356,7 +363,7 @@ main {
     color: var(--tertiary-color);
 }
 
-.modal .confirm-btn {
+.modal .submit-btn {
     background-color: var(--confirm-btn);
 }
 

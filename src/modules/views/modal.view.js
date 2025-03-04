@@ -1,11 +1,10 @@
 import { createList } from "../models/list.model.js";
-import { addList, refresh, removeList, editList, removeTask } from "./list.view.js";
+import { addList, refresh, removeList, editList, removeTask, editTask } from "../controller.js";
 
 const container = document.getElementById("content-container");
 
-
-export function openNewListModal() {
-
+const ListModal = () => {
+    
     // Create components
     const modal = document.createElement("dialog");
     modal.id = "list-modal";
@@ -24,10 +23,10 @@ export function openNewListModal() {
     const modalButtons = document.createElement("div");
     modalButtons.className = "modal-btns";
 
-    const confirmButton = document.createElement("button");
-    confirmButton.id = "confirm-list";
-    confirmButton.className = "confirm-btn modal-btn";
-    confirmButton.textContent = "Confirm";
+    const submitButton = document.createElement("button");
+    submitButton.id = "submit-list";
+    submitButton.className = "submit-btn modal-btn";
+    submitButton.textContent = "Submit";
 
     const cancelButton = document.createElement("button");
     cancelButton.id = "cancel-list";
@@ -36,7 +35,7 @@ export function openNewListModal() {
 
     // Add buttons to button div
     modalButtons.append(
-        confirmButton,
+        submitButton,
         cancelButton
     );
 
@@ -54,12 +53,8 @@ export function openNewListModal() {
         modal.showModal();
     };
 
-    const confirm = () => {
-        const listName = listNameInput.value.trim() != 0 ? listNameInput.value.trim() : undefined;
-
-        addList(createList(listName));
+    let submit = () => {
         refresh();
-        
         close();
     };
 
@@ -70,151 +65,30 @@ export function openNewListModal() {
         container.removeChild(modal);
     };
 
+    const getValue = () => listNameInput.value.trim();
+
+    const setValue = (value) => listNameInput.value = value;
+
+    const setSubmitButton = (func, text="Submit") => {
+        submitButton.addEventListener("click", func);
+        submitButton.textContent = text;
+    }
+
     // Set event listener
-    confirmButton.addEventListener("click", confirm);
     cancelButton.addEventListener("click", close);
 
-    show();
+    return {
+        getValue,
+        setValue,
+        setSubmitButton,
+        show,
+        submit,
+        close
+    }
 };
 
-export function editListModal(list) {
+const TaskModal = () => {
 
-    // Create components
-    const modal = document.createElement("dialog");
-    modal.id = "edit-list-modal";
-    modal.className = "modal";
-
-    const editListLabel = document.createElement("label");
-    editListLabel.className = "edit-list-label";
-    editListLabel.textContent = "List name";
-    editListLabel.setAttribute("for", "edit-list-input");
-
-    const editListInput = document.createElement("input");
-    editListInput.type = "text";
-    editListInput.className = "text-input";
-    editListInput.id = "edit-list-input";
-    editListInput.value = list.name;
-
-    const modalButtons = document.createElement("div");
-    modalButtons.className = "modal-btns";
-
-    const editButton = document.createElement("button");
-    editButton.id = "edit-list";
-    editButton.className = "edit-btn modal-btn";
-    editButton.textContent = "Edit";
-
-    const cancelButton = document.createElement("button");
-    cancelButton.id = "cancel-list";
-    cancelButton.className = "cancel-btn modal-btn";
-    cancelButton.textContent = "Cancel";
-
-    // Add sub components
-    modalButtons.append(
-        editButton,
-        cancelButton,
-    );
-
-    modal.append(
-        editListLabel,
-        editListInput,
-        modalButtons
-    );
-
-    // Functions
-    const show = () => {
-        container.append(modal);
-
-        modal.showModal();
-    };
-
-    const edit = () => {
-        list.name = editListInput.value.trim();
-
-        editList(list);
-        refresh();
-        
-        close();
-    };
-
-    const close = () => {
-        modal.close();
-        container.removeChild(modal);
-    };
-
-    // Set event listener
-    editButton.addEventListener("click", edit);
-    cancelButton.addEventListener("click", close);
-
-    show();
-}
-
-export function deleteListModal(list) {
-
-    // Create components
-    const modal = document.createElement("dialog");
-    modal.id = "delete-list-modal";
-    modal.className = "modal";
-
-    const deleteListLabel = document.createElement("label");
-    deleteListLabel.className = "delete-list-label";
-    deleteListLabel.textContent = "Delete list";
-
-    const deleteStatement = document.createElement("p");
-    deleteStatement.className = "statement";
-    deleteStatement.innerText = `"${list.name}" will be permanently deleted.`
-
-    const modalButtons = document.createElement("div");
-    modalButtons.className = "modal-btns";
-
-    const deleteButton = document.createElement("button");
-    deleteButton.id = "delete-list";
-    deleteButton.className = "delete-btn modal-btn";
-    deleteButton.textContent = "Delete";
-
-    const cancelButton = document.createElement("button");
-    cancelButton.id = "cancel-list";
-    cancelButton.className = "cancel-btn modal-btn";
-    cancelButton.textContent = "Cancel";
-
-    // Add sub components
-    modalButtons.append(
-        deleteButton,
-        cancelButton
-    );
-
-    modal.append(
-        deleteListLabel,
-        deleteStatement,
-        modalButtons
-    );
-
-    // Functions
-    const show = () => {
-        container.append(modal);
-
-        modal.showModal();
-    };
-
-    const remove = () => {
-        removeList(list);
-        close();
-        refresh();
-    };
-
-    const close = () => {
-        modal.close();
-        container.removeChild(modal);
-    };
-
-    // Set event listener
-    deleteButton.addEventListener("click", remove);
-
-    cancelButton.addEventListener("click", close);
-
-    show();
-}
-
-export function addTaskModal() {
     // Create components
     const modal = document.createElement("dialog");
     modal.id = "add-task-modal";
@@ -267,7 +141,7 @@ export function addTaskModal() {
         option.innerText = priorities[i];
         option.value = priorities[i].toLowerCase();
 
-        prioritySelection.appendChild(option);
+        prioritySelection.append(option);
     }
 
     const notesLabel = document.createElement("label");
@@ -282,10 +156,10 @@ export function addTaskModal() {
     const modalButtons = document.createElement("div");
     modalButtons.className = "modal-btns";
 
-    const addButton = document.createElement("button");
-    addButton.id = "add-task";
-    addButton.className = "add-btn modal-btn";
-    addButton.textContent = "Add";
+    const submitButton = document.createElement("button");
+    submitButton.id = "add-task";
+    submitButton.className = "submit-btn modal-btn";
+    submitButton.textContent = "Submit";
 
     const cancelButton = document.createElement("button");
     cancelButton.id = "cancel-task";
@@ -294,7 +168,7 @@ export function addTaskModal() {
 
     // Add buttons to button div
     modalButtons.append(
-        addButton,
+        submitButton,
         cancelButton,
     );
 
@@ -320,7 +194,7 @@ export function addTaskModal() {
         modal.showModal();
     };
 
-    const add = () => {
+    const submit = () => {
         close();
         refresh();
     };
@@ -330,157 +204,66 @@ export function addTaskModal() {
         container.removeChild(modal);
     };
 
-    // Set event listener
-    addButton.addEventListener("click", add);
-    cancelButton.addEventListener("click", close);
-    
-    show();
-}
-
-
-export function editTaskModal(task) {
-    // Create components
-    const modal = document.createElement("dialog");
-    modal.id = "edit-task-modal";
-    modal.className = "task modal";
-
-    const titleLabel = document.createElement("label");
-    titleLabel.className = "task-title-label";
-    titleLabel.textContent = "Title";
-    titleLabel.setAttribute("for", "task-title-input");
-
-    const titleInput = document.createElement("input");
-    titleInput.type = "text";
-    titleInput.className = "text-input";
-    titleInput.id = "task-title-input";
-    titleInput.value = task.title;
-
-    const descriptionLabel = document.createElement("label");
-    descriptionLabel.className = "description-label";
-    descriptionLabel.textContent = "Description";
-    descriptionLabel.setAttribute("for", "description-input");
-
-    const descriptionInput = document.createElement("textarea");
-    descriptionInput.className = "textarea-input";
-    descriptionInput.id = "description-input";
-    descriptionInput.value = task.description;
-
-    const dueDateLabel = document.createElement("label");
-    dueDateLabel.className = "due-date-label";
-    dueDateLabel.textContent = "Due date";
-    dueDateLabel.setAttribute("for", "due-date-input");
-
-    const dueDateInput = document.createElement("input");
-    dueDateInput.type = "date";
-    dueDateInput.className = "date-input";
-    dueDateInput.id = "due-date-input";
-    dueDateInput.value = task.dueDate;
-
-    const priotityLabel = document.createElement("label");
-    priotityLabel.className = "priority-label";
-    priotityLabel.textContent = "Priority";
-    priotityLabel.setAttribute("for", "priority-selection");
-
-    const prioritySelection = document.createElement("select");
-    prioritySelection.className = "select-priority";
-    prioritySelection.id = "priority-selection";
-    prioritySelection.name = "priority";
-    prioritySelection.value = task.priority;
-
-    const priorities = ["Low", "Medium", "High"];
-
-    for(let i = 0; i < 3; i++) {
-        const option = document.createElement("option");
-        option.className = "priority-option";
-        option.innerText = priorities[i];
-        option.value = priorities[i].toLowerCase();
-
-        prioritySelection.appendChild(option);
+    const setSubmitButton = (func, text="Submit") => {
+        submitButton.addEventListener("click", func);
+        submitButton.textContent = text;
     }
 
-    const notesLabel = document.createElement("label");
-    notesLabel.className = "notes-label";
-    notesLabel.textContent = "Notes";
-    notesLabel.setAttribute("for", "notes-input");
+    const setTitle = (title) => titleInput.value = title;
+    
+    const getTitle = () => titleInput.value.trim();
 
-    const notesInput = document.createElement("textarea");
-    notesInput.className = "textarea-input";
-    notesInput.id = "notes-input";
-    notesInput.value = task.notes;
+    const setDescription = (description) => descriptionInput.value = description;
 
-    const modalButtons = document.createElement("div");
-    modalButtons.className = "modal-btns";
+    const getDescription = () => descriptionInput.value.trim();
+        
+    const setDueDate = (dueDate) => dueDateInput.value = dueDate;
+        
+    const getDueDate = () => dueDateInput.value;
 
-    const editButton = document.createElement("button");
-    editButton.id = "edit-task";
-    editButton.className = "edit-btn modal-btn";
-    editButton.textContent = "Edit";
+    const setPriority = (priority) => prioritySelection.value = priority;
 
-    const cancelButton = document.createElement("button");
-    cancelButton.id = "cancel-task";
-    cancelButton.className = "cancel-btn modal-btn";
-    cancelButton.textContent = "Cancel";
+    const getPriority = () => prioritySelection.value;
 
-    // Add buttons to button div
-    modalButtons.append(
-        editButton,
-        cancelButton,
-    );
+    const setNotes = (notes) => notesInput.value = notes;
 
-    // Add sub components to modal
-    modal.append(
-        titleLabel,
-        titleInput,
-        descriptionLabel,
-        descriptionInput,
-        dueDateLabel,
-        dueDateInput,
-        priotityLabel,
-        prioritySelection,
-        notesLabel,
-        notesInput,
-        modalButtons
-    );
-
-    // Functions
-    const show = () => {
-        container.append(modal);
-
-        modal.showModal();
-    };
-
-    const edit = () => {
-        close();
-        refresh();
-    };
-
-    const close = () => {
-        modal.close();
-        container.removeChild(modal);
-    };
+    const getNotes = () => notesInput.value
 
     // Set event listener
-    editButton.addEventListener("click", edit);
     cancelButton.addEventListener("click", close);
     
-    show();
-}
+    return {
+        show,
+        submit,
+        close,
+        setSubmitButton,
+        setTitle,
+        getTitle,
+        setDescription,
+        getDescription,
+        setDueDate,
+        getDueDate,
+        setPriority,
+        getPriority,
+        setNotes,
+        getNotes,
+    };
+};
 
-
-export function deleteTaskModal(task) {
+const DeleteModal = (itemName) => {
 
     // Create components
     const modal = document.createElement("dialog");
-    modal.id = "delete-task-modal";
-    modal.className = "delete modal";
+    modal.id = "delete-list-modal";
+    modal.className = "modal";
 
     const deleteListLabel = document.createElement("label");
     deleteListLabel.className = "delete-list-label";
-    deleteListLabel.textContent = "Delete task";
+    deleteListLabel.textContent = "Delete list";
 
     const deleteStatement = document.createElement("p");
     deleteStatement.className = "statement";
-    deleteStatement.innerText = `"${task.title}" will be permanently deleted.`
+    deleteStatement.innerText = `"${itemName}" will be permanently deleted.`
 
     const modalButtons = document.createElement("div");
     modalButtons.className = "modal-btns";
@@ -514,8 +297,7 @@ export function deleteTaskModal(task) {
         modal.showModal();
     };
 
-    const remove = () => {
-        removeTask(task);
+    const submit = () => {
         close();
         refresh();
     };
@@ -525,10 +307,118 @@ export function deleteTaskModal(task) {
         container.removeChild(modal);
     };
 
-    // Set event listener
-    deleteButton.addEventListener("click", remove);
+    const setDeleteButton = (func) => {
+        deleteButton.addEventListener("click", func);
+    };
 
+    // Set event listener
     cancelButton.addEventListener("click", close);
 
-    show();
+    return {
+        show,
+        submit,
+        close,
+        setDeleteButton
+    }
+};
+
+
+
+// Modals for list
+export function openNewListModal() {
+    const addModal = ListModal();
+
+    const confirm = () => {
+        const listName = addModal.getValue() || undefined;
+
+        addList(createList(listName));
+        
+        addModal.submit();
+    };
+
+    addModal.setSubmitButton(confirm, "Confirm");
+    addModal.show();
+};
+
+export function editListModal(list) {
+    const editModal = ListModal();
+
+    const edit = () => {
+        list.name = editModal.getValue() || "Untitled list";
+
+        editList(list);
+        
+        editModal.submit();
+    };
+    
+    editModal.setValue(list.name);
+    editModal.setSubmitButton(edit, "Edit");
+    editModal.show();
+}
+
+export function deleteListModal(list) {
+
+    const deleteListModal = DeleteModal(list.name);
+
+    const remove = () => {
+        removeList(list);
+        deleteListModal.submit();
+    };
+
+    deleteListModal.setDeleteButton(remove);
+    deleteListModal.show();
+}
+
+
+
+// Modals for task
+export function addTaskModal() {
+    const addModal = TaskModal();
+
+    const add = () => {
+        addModal.submit();
+    };
+
+    addModal.setSubmitButton(add, "Add");
+    addModal.show();
+}
+
+
+export function editTaskModal(task) {
+    const editModal = TaskModal();
+
+    const edit = () => {
+        task.title = editModal.getTitle();
+        task.description = editModal.getDescription();
+        task.dueDate = editModal.getDueDate();
+        task.priority = editModal.getPriority();
+        task.notes = editModal.getNotes();
+
+        editTask(task);
+
+        editModal.submit();
+    };
+
+    console.log(task);
+    
+    editModal.setTitle(task.title);
+    editModal.setDescription(task.description);
+    editModal.setDueDate(task.dueDate);
+    editModal.setPriority(task.priority);
+    editModal.setNotes(task.notes);
+    editModal.setSubmitButton(edit, "Edit");
+    editModal.show();
+}
+
+
+export function deleteTaskModal(task) {
+    const deleteModal = DeleteModal(task.title);
+
+    const remove = () => {
+        removeTask(task);
+        deleteModal.submit();
+    };
+
+    deleteModal.setDeleteButton(remove);
+    deleteModal.show();
 }

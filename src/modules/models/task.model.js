@@ -1,10 +1,7 @@
 // Task model
 
-// Functions
-
-// create task
-// input: title, description, dueDate, priority, notes
-export function createTask(title="Untitled task",description="",dueDate=null,priority=1,notes="A note to guide my task") {
+// Create task
+export function createTask(title="Untitled task",description="",dueDate=null,priority="Low",notes="A note to guide my task") {
     return {
         title,
         description,

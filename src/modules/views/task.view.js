@@ -10,10 +10,12 @@ export function createTaskElement(task) {
 
     const checkbox = document.createElement("input");
     checkbox.type = "checkbox";
+    checkbox.className = "checkbox";
+    checkbox.checked = task.completed;
 
     const taskName = document.createElement("p");
     taskName.className = "task-name";
-    taskName.innerText = task.title;
+    taskName.textContent = task.title;
 
     const editButton = document.createElement("button");
     editButton.className = "edit-task btn";
@@ -23,11 +25,13 @@ export function createTaskElement(task) {
 
     // Set event listener
     checkbox.addEventListener("click", () => {
-        console.log("checked");
+        task.completed = !task.completed;
     });
 
     taskName.addEventListener("click", () => {
         console.log("name clicked");
+
+        console.log(task);
     });
 
     editButton.addEventListener("click", () => {

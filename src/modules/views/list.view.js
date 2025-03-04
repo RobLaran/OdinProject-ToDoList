@@ -77,23 +77,25 @@ export function editList(list) {
 export function showTasks() {
     const list = mainList.getItem(currentList);
 
-    taskTitle.innerText = list.name;
-    const tasks = list.items;
-
-    if(list.size() === 0) {
-        if(!document.getElementById("message")) {
-            const message = "Task list is empty"; 
-
-            const messageWrapper = document.createElement("h4");
-            messageWrapper.innerText = message; 
-            messageWrapper.id = "message";
-            
-            taskList.append(messageWrapper);
-        }
-    } else {
-        tasks.forEach(task => {
-            taskList.append(createTaskElement(task));
-        });
+    if(list) {
+        taskTitle.innerText = list.name;
+        const tasks = list.items;
+    
+        if(list.size() === 0) {
+            if(!document.getElementById("message")) {
+                const message = "Task list is empty"; 
+    
+                const messageWrapper = document.createElement("h4");
+                messageWrapper.innerText = message; 
+                messageWrapper.id = "message";
+                
+                taskList.append(messageWrapper);
+            }
+        } else {
+            tasks.forEach(task => {
+                taskList.append(createTaskElement(task));
+            });
+        }   
     }
 }
 

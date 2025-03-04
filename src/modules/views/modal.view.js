@@ -1,5 +1,5 @@
 import { createList } from "../models/list.model.js";
-import { addList, refresh, removeList, editList } from "./list.view.js";
+import { addList, refresh, removeList, editList, removeTask } from "./list.view.js";
 
 const container = document.getElementById("content-container");
 
@@ -515,6 +515,7 @@ export function deleteTaskModal(task) {
     };
 
     const remove = () => {
+        removeTask(task);
         close();
         refresh();
     };

@@ -74,6 +74,14 @@ export function editList(list) {
     }
 };
 
+export function removeTask(task) {
+    const list = mainList.getItem(currentList);
+
+    if(list) {
+        list.removeItem(task);
+    }
+}
+
 export function showTasks() {
     const list = mainList.getItem(currentList);
 

@@ -40,7 +40,7 @@
 
     --icon: 20px;
 
-    --input-width: 320px;
+    --input-width: 360px;
     --input-height: 1.2rem;
     --input-padding: 4px;
 
@@ -116,8 +116,8 @@ main {
 
     display: grid;
 
-    grid-template-rows: 0.1fr minmax(0, 1fr);
-    grid-template-columns: 0.5fr auto;
+    grid-template-rows: 0.1fr minmax(200px, 1fr);
+    grid-template-columns: minmax(280px, 0.5fr) auto;
 
     padding: 1rem;
 
@@ -137,9 +137,19 @@ main {
     padding: 8px 14px;
 }
 
+div > .heading {
+    color: red;
+
+    width: 20vw;
+    white-space: nowrap;       /* Prevents text from wrapping */
+    overflow: hidden;          /* Hides overflowing content */
+    text-overflow: ellipsis;   /* Adds "..." when text overflows */
+}
+
 /* ToDo lists */
 
 .list-container > #todo-list {
+    min-width: 240px;
     height: 100%;
     overflow-y: auto;
 
@@ -148,30 +158,53 @@ main {
 }
 
 .list-container > .list > .list-item {
-    line-height: 2rem;
+    flex-shrink: 0;
     list-style: none;
     border-bottom: 1px solid black;
 
+    position: relative;
     display: flex;
 
-    align-items: center;
-    justify-content: space-between;
+    align-items: flex-start;
+    justify-items: end;
 
-    padding-left: 3px;
+    padding: 8px 4px 4px 3px;
 
     cursor: pointer;
 
 }
 
-.list-container > #todo-list > .list-item > .list-name,
+.list-container > #task-list > .list-item > .task-name,
+.list-container > #todo-list > .list-item > .list-name  {
+    flex-grow: 1; 
+    flex-shrink: 1; 
+    flex-basis: 0;
+
+    word-wrap: break-word; 
+    overflow-wrap: break-word; 
+    white-space: normal;  
+}
+
+.list-container > #todo-list > .list-item > .list-name {
+    min-width: 180px; 
+}
+
 .list-container > #task-list > .list-item > .task-name {
-    flex-grow: 1;
+    min-width: 380px; 
+
+}
+
+.list-container > .list > .list-item > .checkbox,
+.list-container > .list > .list-item > .btn {
+    flex-shrink: 0;
 }
 
 .list-container > .list > .list-item > .btn {
     border: none;
 
     cursor: pointer;
+
+    margin-left: auto;
 }
 
 .list-container > .list > .list-item > .edit-list.btn,
@@ -317,6 +350,8 @@ main {
 
 /* Modal */
 .modal {
+    width: 400px;
+
     background-color: var(--secondary-color);
     margin: auto;
 
@@ -351,13 +386,13 @@ main {
 }
 
 .modal .modal-btn {
-    width: var(--button-width);
+    min-width: var(--button-width);
     line-height: var(--button-height);
     border-radius: var(--border-btn);
-
+        
     border: none;
 
-    font-family: var(--font);
+    font-family: var(--font);    
     font-size: var(--text-size);
 }
 
@@ -385,7 +420,7 @@ main {
 
 .modal .text-input,
 .modal .textarea-input {
-    width: var(--input-width);
+    max-width: var(--input-width);
     line-height: var(--input-height);
     padding: var(--input-padding);
 
@@ -402,6 +437,8 @@ main {
     grid-template-columns: 1fr 1fr;
 
     column-gap: 12px;
+
+    width: 100%;
 }
 
 .task.modal > .form > input,
@@ -439,4 +476,50 @@ footer > #dev > p {
 
     justify-self: center;
     align-self: center;
+}
+
+@media (max-width: 675px) {
+    #content-container {
+        grid-template-columns: minmax(0, 1fr);
+        grid-template-rows: 0.1fr minmax(200px, 1fr) 0.1fr minmax(200px, 1fr);
+
+        height: 845px;
+
+        margin-bottom: 40px;
+    }
+
+    #content-container > .list-container {
+        overflow-y: auto;
+    }
+
+    #content-container > .todo-list-container {
+        grid-row: 2;
+
+        margin-bottom: 12px;
+    }
+
+    #content-container > .tasks-heading-container {
+        grid-row: 3;
+    }
+
+    #content-container > .tasks-container {
+        grid-row: 4;
+    }
+
+    div > .heading {
+        width: 50vw;
+    }
+
+    .add.wrapper {
+        margin-top: 12px;
+    }
+
+    .list-container > #todo-list > .list-item > .list-name {
+        min-width: 120px; 
+    }
+
+    .list-container > #task-list > .list-item > .task-name {
+        min-width: 120px; 
+    }
+    
 }

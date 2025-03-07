@@ -1,7 +1,7 @@
 // Task model
 
 // Create task
-export function createTask(title="Untitled task",description="",dueDate=null,priority="Low",notes="A note to guide my task") {
+export function createTask(title="Untitled task",description="",dueDate=new Date(),priority="low",notes="A note to guide my task") {
     return {
         title,
         description,

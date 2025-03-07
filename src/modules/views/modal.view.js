@@ -24,6 +24,7 @@ const ListModal = () => {
     listNameInput.type = "text";
     listNameInput.className = "text-input";
     listNameInput.id = "list-name-input";
+    listNameInput.maxLength = 120;
 
     const modalButtons = document.createElement("div");
     modalButtons.className = "modal-btns";
@@ -114,6 +115,7 @@ const TaskModal = () => {
     titleInput.type = "text";
     titleInput.className = "text-input";
     titleInput.id = "task-title-input";
+    titleInput.maxLength = 120;
 
     const descriptionLabel = document.createElement("label");
     descriptionLabel.className = "description-label";
@@ -123,6 +125,7 @@ const TaskModal = () => {
     const descriptionInput = document.createElement("textarea");
     descriptionInput.className = "textarea-input";
     descriptionInput.id = "description-input";
+    descriptionInput.maxLength = 240;
 
     const dueDateLabel = document.createElement("label");
     dueDateLabel.className = "due-date-label";
@@ -163,6 +166,7 @@ const TaskModal = () => {
     const notesInput = document.createElement("textarea");
     notesInput.className = "textarea-input";
     notesInput.id = "notes-input";
+    notesInput.maxLength = 240;
 
     const modalButtons = document.createElement("div");
     modalButtons.className = "modal-btns";
@@ -225,7 +229,7 @@ const TaskModal = () => {
 
     const setTitle = (title) => titleInput.value = title;
     
-    const getTitle = () => titleInput.value.trim() || "Untitled Task";
+    const getTitle = () => titleInput.value.trim() || undefined;
 
     const setDescription = (description) => descriptionInput.value = description;
 
@@ -233,11 +237,11 @@ const TaskModal = () => {
         
     const setDueDate = (dueDate) => dueDateInput.value = dueDate;
         
-    const getDueDate = () => dueDateInput.value;
+    const getDueDate = () => dueDateInput.value || undefined;
 
     const setPriority = (priority) => prioritySelection.value = priority;
 
-    const getPriority = () => prioritySelection.value;
+    const getPriority = () => prioritySelection.value || undefined;
 
     const setNotes = (notes) => notesInput.value = notes;
 

@@ -254,6 +254,8 @@ main {
     display: flex;
 
     flex-direction: column;
+
+    overflow-y: auto;
 }
 
 #task-list > .list-item > .task-name {
@@ -323,13 +325,15 @@ main {
 
     box-sizing: border-box;
 
-    display: grid;
-
     font-size: var(--text-size);
 }
 
 .modal::backdrop {
     backdrop-filter: blur(3px);
+}
+
+.modal > .form {
+    display: grid;
 }
 
 /* Modal buttons */
@@ -394,25 +398,25 @@ main {
     resize: none;
 }
 
-.task.modal {
+.task.modal > .form{
     grid-template-columns: 1fr 1fr;
 
     column-gap: 12px;
 }
 
-.task.modal > input,
-.task.modal > textarea,
-.task.modal > select {
+.task.modal > .form > input,
+.task.modal > .form > textarea,
+.task.modal > .form > select {
     margin-bottom: 6px;
 }
 
-.task.modal > *:has(~ .due-date-label),
-.task.modal > .select-priority ~ * {
+.task.modal > .form > *:has(~ .due-date-label),
+.task.modal > .form >.select-priority ~ * {
     grid-column: 1 / span 2;
 }
 
-.task.modal > .due-date-label,
-.task.modal > .priority-label {
+.task.modal > .form > .due-date-label,
+.task.modal > .form > .priority-label {
     grid-row: 5;
 }
 

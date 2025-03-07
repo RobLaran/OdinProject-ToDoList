@@ -1,5 +1,6 @@
 import { createList } from "../models/list.model.js";
-import { addList, refresh, removeList, editList, removeTask, editTask } from "../controller.js";
+import { addList, refresh, removeList, editList, addTask, removeTask, editTask } from "../controller.js";
+import { createTask } from "../models/task.model.js";
 
 const container = document.getElementById("content-container");
 
@@ -9,6 +10,10 @@ const ListModal = () => {
     const modal = document.createElement("dialog");
     modal.id = "list-modal";
     modal.className = "modal";
+
+    const form = document.createElement("form");
+    form.id = "list-form";
+    form.className = "list form";
 
     const listLabel = document.createElement("label");
     listLabel.className = "list-label";
@@ -40,11 +45,13 @@ const ListModal = () => {
     );
 
     // Add sub components to modal
-    modal.append(
+    form.append(
         listLabel,
         listNameInput,
         modalButtons
     );
+
+    modal.append(form);
 
     // Functions
     const show = () => {
@@ -93,6 +100,10 @@ const TaskModal = () => {
     const modal = document.createElement("dialog");
     modal.id = "add-task-modal";
     modal.className = "task modal";
+
+    const form = document.createElement("form");
+    form.id = "task-form";
+    form.className = "task form";
 
     const titleLabel = document.createElement("label");
     titleLabel.className = "task-title-label";
@@ -160,6 +171,7 @@ const TaskModal = () => {
     submitButton.id = "add-task";
     submitButton.className = "submit-btn modal-btn";
     submitButton.textContent = "Submit";
+    submitButton.type = "submit";
 
     const cancelButton = document.createElement("button");
     cancelButton.id = "cancel-task";
@@ -173,7 +185,7 @@ const TaskModal = () => {
     );
 
     // Add sub components to modal
-    modal.append(
+    form.append(
         titleLabel,
         titleInput,
         descriptionLabel,
@@ -187,6 +199,8 @@ const TaskModal = () => {
         modalButtons
     );
 
+    modal.append(form);
+
     // Functions
     const show = () => {
         container.append(modal);
@@ -195,8 +209,8 @@ const TaskModal = () => {
     };
 
     const submit = () => {
-        close();
         refresh();
+        close();
     };
 
     const close = () => {
@@ -211,7 +225,7 @@ const TaskModal = () => {
 
     const setTitle = (title) => titleInput.value = title;
     
-    const getTitle = () => titleInput.value.trim();
+    const getTitle = () => titleInput.value.trim() || "Untitled Task";
 
     const setDescription = (description) => descriptionInput.value = description;
 
@@ -376,6 +390,14 @@ export function addTaskModal() {
     const addModal = TaskModal();
 
     const add = () => {
+        const title = addModal.getTitle();
+        const description = addModal.getDescription();
+        const dueDate = addModal.getDueDate();
+        const priority = addModal.getPriority();
+        const notes = addModal.getNotes();
+
+        addTask(createTask(title, description, dueDate, priority, notes));
+
         addModal.submit();
     };
 

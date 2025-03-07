@@ -35,6 +35,8 @@ export function createTaskElement(task) {
     });
 
     editButton.addEventListener("click", () => {
+        
+
         editTaskModal(task);
     });
 

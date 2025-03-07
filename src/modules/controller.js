@@ -31,6 +31,8 @@ export function editList(updatedList) {
 
 // Task operations
 export function addTask(task) {
+    console.log(mainList.getItem(currentList));
+
     mainList.getItem(currentList).add(task);
 }
 

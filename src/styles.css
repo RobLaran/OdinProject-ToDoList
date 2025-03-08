@@ -138,8 +138,6 @@ main {
 }
 
 div > .heading {
-    color: red;
-
     width: 20vw;
     white-space: nowrap;       /* Prevents text from wrapping */
     overflow: hidden;          /* Hides overflowing content */
@@ -190,7 +188,7 @@ div > .heading {
 }
 
 .list-container > #task-list > .list-item > .task-name {
-    min-width: 380px; 
+    max-width: 380px; 
 
 }
 
@@ -199,12 +197,28 @@ div > .heading {
     flex-shrink: 0;
 }
 
+.list-container > .list > .list-item > .priority {
+    margin-left: auto;
+}
+
+.list-container > .list > .list-item > .priority.low {
+    color: green;
+}
+
+.list-container > .list > .list-item > .priority.medium {
+    color: yellow;
+}
+
+.list-container > .list > .list-item > .priority.high {
+    color: red;
+}
+
 .list-container > .list > .list-item > .btn {
     border: none;
 
     cursor: pointer;
 
-    margin-left: auto;
+    margin-left: 8px;
 }
 
 .list-container > .list > .list-item > .edit-list.btn,
@@ -361,7 +375,20 @@ div > .heading {
     box-sizing: border-box;
 
     font-size: var(--text-size);
+	animation: scale-in-center 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
 }
+
+@keyframes scale-in-center {
+    0% {
+      transform: scale(0);
+      opacity: 1;
+    }
+    100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+
 
 .modal::backdrop {
     backdrop-filter: blur(3px);

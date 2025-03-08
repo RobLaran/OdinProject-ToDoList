@@ -17,6 +17,10 @@ export function createTaskElement(task) {
     taskName.className = "task-name";
     taskName.textContent = task.title;
 
+    const priorityCircle = document.createElement("span");
+    priorityCircle.className = "priority " + task.priority;
+    priorityCircle.textContent = "●";
+
     const editButton = document.createElement("button");
     editButton.className = "edit-task btn";
 
@@ -48,6 +52,7 @@ export function createTaskElement(task) {
     taskDiv.append(
         checkbox,
         taskName,
+        priorityCircle,
         editButton,
         deleteButton
     );

@@ -38,7 +38,6 @@ export function createListElement(list) {
 
         console.log("List index: " + currentList);
         console.log(mainList.items[index]);
-        
     });
     
 

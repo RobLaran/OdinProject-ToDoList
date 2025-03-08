@@ -1,5 +1,5 @@
 // Task view
-import { deleteTaskModal, editTaskModal } from "./modal.view";
+import { deleteTaskModal, editTaskModal, taskDetailsModal } from "./modal.view";
 import { refresh } from "../controller";
 
 // Create element to display a task
@@ -36,9 +36,7 @@ export function createTaskElement(task) {
     });
 
     taskName.addEventListener("click", () => {
-        console.log("name clicked");
-
-        console.log(task);
+        taskDetailsModal(task);
     });
 
     editButton.addEventListener("click", () => {

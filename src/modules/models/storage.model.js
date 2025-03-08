@@ -13,8 +13,6 @@ export function loadList(name="data") {
         if (typeof item === "object") {
             const list = createList(item.name);
 
-            console.log(item);
-
             item.items.forEach((task) => {
                 list.add(task);
             });

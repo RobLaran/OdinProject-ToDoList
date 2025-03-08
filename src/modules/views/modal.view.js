@@ -248,6 +248,18 @@ const TaskModal = () => {
 
     const getNotes = () => notesInput.value
 
+    const disableAll = () => {
+        titleInput.disabled = true;
+        descriptionInput.disabled = true;
+        dueDateInput.disabled = true;
+        prioritySelection.disabled = true;
+        notesInput.disabled = true;
+
+        modalButtons.removeChild(submitButton);
+
+        cancelButton.textContent = "Close";
+    };
+
     // Set event listener
     cancelButton.addEventListener("click", close);
     
@@ -266,6 +278,7 @@ const TaskModal = () => {
         getPriority,
         setNotes,
         getNotes,
+        disableAll
     };
 };
 
@@ -425,8 +438,6 @@ export function editTaskModal(task) {
 
         editModal.submit();
     };
-
-    console.log(task);
     
     editModal.setTitle(task.title);
     editModal.setDescription(task.description);
@@ -448,4 +459,22 @@ export function deleteTaskModal(task) {
 
     deleteModal.setDeleteButton(remove);
     deleteModal.show();
+}
+
+export function taskDetailsModal(task) {
+    const detailsModal = TaskModal();
+
+    const fill = () => {
+        editTask(task);
+
+        editModal.submit();
+    };
+
+    detailsModal.setTitle(task.title);
+    detailsModal.setDescription(task.description);
+    detailsModal.setDueDate(task.dueDate);
+    detailsModal.setPriority(task.priority);
+    detailsModal.setNotes(task.notes);
+    detailsModal.disableAll();
+    detailsModal.show();
 }

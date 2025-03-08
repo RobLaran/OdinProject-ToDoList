@@ -1,10 +1,10 @@
-import { createTask } from "./models/task.model.js";
-import { createList } from "./models/list.model.js";
 import { createListElement } from "./views/list.view.js";
 import { createTaskElement } from "./views/task.view.js";
 import { openNewListModal, addTaskModal } from "./views/modal.view.js";
+import { storageAvailable, loadList, saveList } from "./models/storage.model.js";
 
-export const mainList = createList("Todo List");
+export const mainList = loadList();
+
 export const todoList = document.getElementById("todo-list");
 
 export const taskTitle = document.getElementById("task-title");
@@ -73,7 +73,6 @@ export function showTasks() {
     }
 }
 
-
 // Handle events
 function newListEventListener() {
     const newListButton = document.getElementById("new-list");
@@ -119,27 +118,20 @@ export function refresh() {
 
         taskChild = taskList.lastElementChild;
     }
-    
+
+    saveList(mainList);
     render();
 };
 
 
 // Initialize
 export function initialize() {
+    // Web Storage API available
+    console.log("'localStorage' availability: " + storageAvailable("localStorage"));
+
     newListEventListener();
     newTaskEventListener();
 
-    const defaultList = createList("Default list");
-
-    const task1 = createTask("Task One");
-    const task2 = createTask("Task Two");
-    const task3 = createTask("Task Three");
-
-    defaultList.add(task1);
-    defaultList.add(task2);
-    defaultList.add(task3);
-
-    addList(defaultList);
     render();
 }
 

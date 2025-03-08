@@ -238,7 +238,7 @@ const TaskModal = () => {
         
     const setDueDate = (dueDate) => dueDateInput.value = format(dueDate, "yyyy-MM-dd");
         
-    const getDueDate = () => format(dueDateInput.value, "MMMM dd, yyyy") || undefined;
+    const getDueDate = () => dueDateInput.value || undefined;
 
     const setPriority = (priority) => prioritySelection.value = priority;
 

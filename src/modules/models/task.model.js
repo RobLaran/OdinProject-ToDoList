@@ -2,14 +2,14 @@
 import { format } from "date-fns";
 
 // Create task
-export function createTask(title="Untitled task",description="",dueDate=format(new Date(), "MMMM dd, yyyy"),priority="low",notes="A note to guide my task") {
+export function createTask(title="Untitled task",description="",dueDate=format(new Date(), "MMMM dd, yyyy"),priority="low",notes="A note to guide my task", completed=false) {
     return {
         title,
         description,
         dueDate,
         priority,
         notes,
-        completed: false
+        completed: completed
     }
 };
 

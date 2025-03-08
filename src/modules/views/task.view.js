@@ -1,5 +1,6 @@
 // Task view
 import { deleteTaskModal, editTaskModal } from "./modal.view";
+import { refresh } from "../controller";
 
 // Create element to display a task
 export function createTaskElement(task) {
@@ -30,6 +31,8 @@ export function createTaskElement(task) {
     // Set event listener
     checkbox.addEventListener("click", () => {
         task.completed = !task.completed;
+
+        refresh();
     });
 
     taskName.addEventListener("click", () => {

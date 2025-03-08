@@ -1,6 +1,7 @@
 import { createList } from "../models/list.model.js";
 import { addList, refresh, removeList, editList, addTask, removeTask, editTask } from "../controller.js";
 import { createTask } from "../models/task.model.js";
+import { format } from "date-fns";
 
 const container = document.getElementById("content-container");
 
@@ -235,9 +236,9 @@ const TaskModal = () => {
 
     const getDescription = () => descriptionInput.value.trim();
         
-    const setDueDate = (dueDate) => dueDateInput.value = dueDate;
+    const setDueDate = (dueDate) => dueDateInput.value = format(dueDate, "yyyy-MM-dd");
         
-    const getDueDate = () => dueDateInput.value || undefined;
+    const getDueDate = () => format(dueDateInput.value, "MMMM dd, yyyy") || undefined;
 
     const setPriority = (priority) => prioritySelection.value = priority;
 

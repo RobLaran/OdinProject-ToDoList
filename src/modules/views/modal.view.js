@@ -84,7 +84,10 @@ const ListModal = () => {
     }
 
     // Set event listener
-    cancelButton.addEventListener("click", close);
+    cancelButton.addEventListener("click", (event) => {
+        event.preventDefault();
+        close();
+    });
 
     return {
         getValue,
@@ -106,6 +109,7 @@ const TaskModal = () => {
     const form = document.createElement("form");
     form.id = "task-form";
     form.className = "task form";
+    form.action = "index.js";
 
     const titleLabel = document.createElement("label");
     titleLabel.className = "task-title-label";
@@ -261,7 +265,10 @@ const TaskModal = () => {
     };
 
     // Set event listener
-    cancelButton.addEventListener("click", close);
+    cancelButton.addEventListener("click", (event) => {
+        event.preventDefault();
+        close();
+    });
     
     return {
         show,
@@ -344,7 +351,10 @@ const DeleteModal = (itemName) => {
     };
 
     // Set event listener
-    cancelButton.addEventListener("click", close);
+    cancelButton.addEventListener("click", (event) => {
+        event.preventDefault();
+        close();
+    });
 
     return {
         show,
@@ -360,7 +370,9 @@ const DeleteModal = (itemName) => {
 export function openNewListModal() {
     const addModal = ListModal();
 
-    const confirm = () => {
+    const confirm = (event) => {
+        event.preventDefault();
+
         const listName = addModal.getValue() || undefined;
 
         addList(createList(listName));
@@ -375,7 +387,9 @@ export function openNewListModal() {
 export function editListModal(list) {
     const editModal = ListModal();
 
-    const edit = () => {
+    const edit = (event) => {
+        event.preventDefault();
+
         list.name = editModal.getValue() || "Untitled list";
 
         editList(list);
@@ -392,7 +406,9 @@ export function deleteListModal(list) {
 
     const deleteListModal = DeleteModal(list.name);
 
-    const remove = () => {
+    const remove = (event) => {
+        event.preventDefault();
+
         removeList(list);
         deleteListModal.submit();
     };
@@ -407,7 +423,9 @@ export function deleteListModal(list) {
 export function addTaskModal() {
     const addModal = TaskModal();
 
-    const add = () => {
+    const add = (event) => {
+        event.preventDefault();
+
         const title = addModal.getTitle();
         const description = addModal.getDescription();
         const dueDate = addModal.getDueDate();
@@ -427,7 +445,9 @@ export function addTaskModal() {
 export function editTaskModal(task) {
     const editModal = TaskModal();
 
-    const edit = () => {
+    const edit = (event) => {
+        event.preventDefault();
+
         task.title = editModal.getTitle();
         task.description = editModal.getDescription();
         task.dueDate = editModal.getDueDate();
@@ -452,7 +472,9 @@ export function editTaskModal(task) {
 export function deleteTaskModal(task) {
     const deleteModal = DeleteModal(task.title);
 
-    const remove = () => {
+    const remove = (event) => {
+        event.preventDefault();
+
         removeTask(task);
         deleteModal.submit();
     };
@@ -463,12 +485,6 @@ export function deleteTaskModal(task) {
 
 export function taskDetailsModal(task) {
     const detailsModal = TaskModal();
-
-    const fill = () => {
-        editTask(task);
-
-        editModal.submit();
-    };
 
     detailsModal.setTitle(task.title);
     detailsModal.setDescription(task.description);

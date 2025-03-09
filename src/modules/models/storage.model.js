@@ -13,9 +13,7 @@ export function loadList(name="data") {
         if (typeof item === "object") {
             const list = createList(item.name);
 
-            item.items.forEach((task) => {
-                list.add(task);
-            });
+            item.items.forEach((task) => list.add(task));
 
             listStorage.add(list); 
         } 
@@ -40,6 +38,7 @@ export function saveList(list) {
     localStorage.setItem("data", JSON.stringify(listStorage));
 }
 
+// Copyright from MDN Reference
 // Check localStorage
 export function storageAvailable(type) {
     let storage;
@@ -60,7 +59,7 @@ export function storageAvailable(type) {
     }
 }
 
-// Default values
+// Default list
 function loadDefault() {
     const list = createList("Todo Lists");
     const defaultList = createList("Default list");

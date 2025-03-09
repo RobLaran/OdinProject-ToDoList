@@ -2,7 +2,7 @@
 
 // Create list 
 export function createList(name="Untitled list") {
-    const list = [];
+    let list = [];
 
     const items = (() => list)();
 
@@ -26,6 +26,8 @@ export function createList(name="Untitled list") {
         list.splice(index, 1);
     };
 
+    const copy = (newList) => list = [...newList];
+
     return {
         name,
         items,
@@ -33,7 +35,8 @@ export function createList(name="Untitled list") {
         add,
         updateItem,
         getItem,
-        removeItem
+        removeItem,
+        copy
     }
 }
 

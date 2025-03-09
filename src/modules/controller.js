@@ -71,6 +71,7 @@ export function showTasks() {
     }
 }
 
+
 // Handle events
 function newListEventListener() {
     const newListButton = document.getElementById("new-list");
